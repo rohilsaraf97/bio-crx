@@ -1,6 +1,6 @@
 # Bionic Reader CRX
 
-Bionic reader extension for chromium browsers. 
+Bionic reader extension for chromium browsers.
 
 ## Tech Stack
 
@@ -17,15 +17,20 @@ To deploy this project for development:
 ```bash
 git clone https://github.com/c-arvind/bionic-reader.git
 ```
+
 2. Install all the dependencies for the project:
+
 ```bash
 cd bionic-reader
 npm i
 ```
+
 3. Next, run the following command to build the **dist** folder:
+
 ```bash
 npm run dev
 ```
+
 4. Now, you must see a folder named **dist** in your root directory.
 
 5. Open Google Chrome and click on the extensions icon.
@@ -43,11 +48,12 @@ npm run dev
 8. The extension should now be visible. While the dev script is running, all changes in made in development can be simultaneously seen on the loaded extension.
 
 ## Demo
+
 <p align="center"> 
 <img width="364" alt="image" src="https://user-images.githubusercontent.com/72320207/181053873-2ea81a59-f60e-4dcc-a2a2-fb2c9544726f.png">
 </p>
 
-## Important Resources 
+## Important Resources
 
 **Wire framing**: Using [Excalidraw](https://excalidraw.com/)
 
