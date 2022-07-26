@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "bionic-reader-extension",
+  "description": "A chrome extension that enables bionic reading in the current webpage",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "This is a Bionic Reader Extension",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "favicon.ico",
+    "48": "favicon.ico",
+    "128": "favicon.ico"
+  }
+}
