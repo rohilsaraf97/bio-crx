@@ -1,11 +1,12 @@
 import React from "react";
+import Header from "./components/Header";
+import Input from "./components/Input";
 
 const App = () => {
   return (
     <div className="App">
-      <h1 className="heading">
-        This is another rgeveev ejer v u u y gr enjtest
-      </h1>
+      <Header />
+      <Input />
     </div>
   );
 };
