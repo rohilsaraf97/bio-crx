@@ -19,7 +19,7 @@ git clone https://github.com/c-arvind/bionic-reader.git
 ```
 2. Install all the dependencies for the project:
 ```bash
-cd bio-reader
+cd bionic-reader
 npm i
 ```
 3. Next, run the following command to build the **dist** folder:
