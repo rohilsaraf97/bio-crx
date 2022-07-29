@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { handleBionification } from "../background";
+import { handleBionification } from "../handleBionify";
 
 const Input = () => {
   const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
     fixation: "3",
     saccade: "10",
@@ -28,12 +27,29 @@ const Input = () => {
   };
 
   useEffect(() => {
-    // chrome.storage.sync.get("orgBody", function (items) {
-    //   if (items) {
-    //     console.log(">>>> in usse effect again");
-    //     console.log(">>>>org body", items);
-    //   }
-    // });
+    const getStorage = async () => {
+      const [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+      });
+      chrome.scripting.executeScript(
+        {
+          target: { tabId: tab.id! },
+          func: function () {
+            console.log(localStorage);
+            return JSON.stringify(localStorage);
+          },
+        },
+        (injectionResults) => {
+          if (injectionResults[0].result !== null) {
+            if (JSON.parse(injectionResults[0].result).orgBody) {
+              setToggle(true);
+            }
+          }
+        }
+      );
+    };
+    getStorage();
   }, []);
 
   return (
