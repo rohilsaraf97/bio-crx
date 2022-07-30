@@ -12,6 +12,7 @@ const Input = () => {
     e.preventDefault();
     setToggle((prev) => !prev);
     handleBionification(toggle);
+    window.close();
   };
 
   const onFixationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,28 +61,32 @@ const Input = () => {
             {toggle ? "Turn off" : "Turn on"}
           </button>
         </div>
-        <div className="user-input__control">
-          <label htmlFor="">Fixation: </label>
-          <input
-            type="range"
-            min="1"
-            max="100"
-            value={params.fixation}
-            onChange={onFixationChange}
-            disabled={!toggle}
-          />
-        </div>
-        <div className="user-input__control">
-          <label htmlFor="">Saccade: </label>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={params.saccade}
-            onChange={onSaccadeChange}
-            disabled={!toggle}
-          />
-        </div>
+        {toggle && (
+          <>
+            <div className="user-input__control">
+              <label htmlFor="">Fixation: </label>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value={params.fixation}
+                onChange={onFixationChange}
+                disabled={!toggle}
+              />
+            </div>
+            <div className="user-input__control">
+              <label htmlFor="">Saccade: </label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={params.saccade}
+                onChange={onSaccadeChange}
+                disabled={!toggle}
+              />
+            </div>
+          </>
+        )}
       </form>
     </div>
   );

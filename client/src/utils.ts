@@ -11,6 +11,7 @@ export const bionifyContent = () => {
       htmlBody: `${document.body.innerHTML}`,
       fixation: "1",
       saccade: "10",
+      url: window.location.href,
     }),
   };
 
@@ -22,7 +23,8 @@ export const bionifyContent = () => {
 
   fetch(url, options)
     .then((response) => {
-      return response.body;
+      if (response.status === 200) return response.body;
+      throw Error(response.statusText);
     })
     .then((rb) => {
       const reader = rb!.getReader();
@@ -49,6 +51,14 @@ export const bionifyContent = () => {
     )
     .then((result) => {
       document.body.innerHTML = result;
+    })
+    .catch((error) => {
+      document.body.innerHTML =
+        "<div><h3>Cannot Process your request at the moment.</h3></div>";
+      setTimeout(() => {
+        document.body.innerHTML = localStorage.getItem("orgBody")!;
+        localStorage.clear();
+      }, 1000);
     });
 };
 
