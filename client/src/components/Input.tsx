@@ -61,7 +61,7 @@ const Input = () => {
             {toggle ? "Turn off" : "Turn on"}
           </button>
         </div>
-        {toggle && (
+        {/* {toggle && (
           <>
             <div className="user-input__control">
               <label htmlFor="">Fixation: </label>
@@ -86,7 +86,7 @@ const Input = () => {
               />
             </div>
           </>
-        )}
+        )} */}
       </form>
     </div>
   );

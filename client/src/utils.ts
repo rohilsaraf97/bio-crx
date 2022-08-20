@@ -1,6 +1,6 @@
 export const bionifyContent = () => {
   localStorage.setItem("orgBody", `${document.body.innerHTML}`);
-  const url = "http://localhost:5000/bionify";
+  const url = "https://afternoon-sands-94401.herokuapp.com/bionify";
 
   const options = {
     method: "POST",
@@ -21,48 +21,53 @@ export const bionifyContent = () => {
   document.body.innerHTML =
     '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
 
-  fetch(url, options)
-    .then((response) => {
-      if (response.status === 200) return response.body;
-      throw Error(response.statusText);
-    })
-    .then((rb) => {
-      const reader = rb!.getReader();
-      return new ReadableStream({
-        start(controller) {
-          function push() {
-            reader.read().then(({ done, value }) => {
-              if (done) {
-                controller.close();
-                return;
-              }
-              controller.enqueue(value);
-              push();
-            });
-          }
-          push();
-        },
+  if (localStorage.getItem("bioBody") !== null) {
+    document.body.innerHTML = localStorage.getItem("bioBody") as string;
+  } else {
+    fetch(url, options)
+      .then((response) => {
+        if (response.status === 200) return response.body;
+        throw Error(response.statusText);
+      })
+      .then((rb) => {
+        const reader = rb!.getReader();
+        return new ReadableStream({
+          start(controller) {
+            function push() {
+              reader.read().then(({ done, value }) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                controller.enqueue(value);
+                push();
+              });
+            }
+            push();
+          },
+        });
+      })
+      .then((stream) =>
+        new Response(stream, {
+          headers: { "Content-Type": "text/html" },
+        }).text()
+      )
+      .then((result) => {
+        document.body.innerHTML = result;
+        localStorage.setItem("bioBody", result);
+      })
+      .catch((error) => {
+        document.body.innerHTML =
+          "<div><h3>Cannot Process your request at the moment.</h3></div>";
+        setTimeout(() => {
+          document.body.innerHTML = localStorage.getItem("orgBody")!;
+          localStorage.clear();
+        }, 1000);
       });
-    })
-    .then((stream) =>
-      new Response(stream, {
-        headers: { "Content-Type": "text/html" },
-      }).text()
-    )
-    .then((result) => {
-      document.body.innerHTML = result;
-    })
-    .catch((error) => {
-      document.body.innerHTML =
-        "<div><h3>Cannot Process your request at the moment.</h3></div>";
-      setTimeout(() => {
-        document.body.innerHTML = localStorage.getItem("orgBody")!;
-        localStorage.clear();
-      }, 1000);
-    });
+  }
 };
 
 export const deBionifyContent = () => {
   document.body.innerHTML = localStorage.getItem("orgBody")!;
-  localStorage.clear();
+  localStorage.removeItem("orgBody");
 };
