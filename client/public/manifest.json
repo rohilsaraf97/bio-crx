@@ -13,13 +13,6 @@
     "48": "favicon-32x32.png",
     "128": "favicon-32x32.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["clearLocal.js"],
-      "run_at": "document_idle"
-    }
-  ],
 
-  "permissions": ["activeTab", "storage", "scripting"]
+  "permissions": ["activeTab", "scripting"]
 }
